@@ -9,7 +9,20 @@ public class TestEmployee {
 	public static void main(String[] args) {
 	     //add();
 		//update();
-		search();
+		//search();
+	    FindByPk();
+	}
+
+	private static void FindByPk() {
+		EmployeeDTO dto = new EmployeeDTO();
+		EmployeeModel model = new EmployeeModel();
+		
+		dto = model.FindByPk(1);
+		
+		System.out.print(dto.getId());
+		System.out.print("\t"+dto.getName());
+		System.out.print("\t"+dto.getAddress());
+		System.out.print("\t"+dto.getSalary());
 	}
 
 	private static void search() {

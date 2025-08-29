@@ -3,6 +3,7 @@ package com.rays.user;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -73,6 +74,45 @@ public class EmployeeModel {
 		 
 		  
 		
+		 
+	 }
+	 
+	 public  EmployeeDTO authenticate(String login ,String password) {
+		 
+			SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+			Session session = sf.openSession();
+
+			Query q = session.createQuery("from EmployeeDTO where loginId = ? and password = ?");
+
+			q.setString(0, login);
+			q.setString(1, password);
+
+			List list = q.list();
+
+			EmployeeDTO dto = null;
+
+			if (list.size() > 0) {
+
+				dto = (EmployeeDTO) list.get(0);
+
+			}
+			session.close();
+		return dto;
+		 
+	 }
+	 
+	 public EmployeeDTO FindByPk(int pk) {
+		 SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+			Session session = sf.openSession();
+			
+
+			EmployeeDTO dto = (EmployeeDTO) session.get(EmployeeDTO.class, pk);
+
+			session.close();
+		 
+		return dto;
 		 
 	 }
 
